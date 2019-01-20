@@ -1,6 +1,6 @@
 # echoes
 
-`echoes` is a simple web application that returns anything that it received and the timestamp of the request.
+`echoes` is a simple web application that returns anything it receives.
 
 ### Usage
 
