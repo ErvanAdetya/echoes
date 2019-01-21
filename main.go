@@ -6,6 +6,9 @@ import (
 	"github.com/go-chi/chi"
 	"net/http"
 	"time"
+	"os"
+	"strconv"
+	"fmt"
 )
 
 type echoRequestResource struct {
@@ -62,9 +65,17 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+    port := os.Getenv("PORT")
+
+    _, err := strconv.Atoi(port)
+    if err != nil || port == "" {
+        port = "5000"
+    }
+
 	r := chi.NewRouter()
 	r.Post("/", echoHandler)
 	r.Get("/", healthCheck)
 
-	http.ListenAndServe(":5000", r)
+	fmt.Printf("Server is listening on port %s\n", port)
+	http.ListenAndServe(":" + port, r)
 }
