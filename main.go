@@ -9,7 +9,7 @@ import (
 )
 
 type echoRequestResource struct {
-	Message string `json: "message"`
+	Message string `json:"message"`
 }
 
 func (r echoRequestResource) validate() error {
@@ -21,13 +21,13 @@ func (r echoRequestResource) validate() error {
 }
 
 type echoResponseResource struct {
-	Message   string `json: "message"`
-	Timestamp string `json: timestamp`
+	Message   string `json:"message"`
+	Timestamp string `json:"timestamp"`
 }
 
 type errorMessageResource struct {
-	Code    int    `json: "code"`
-	Message string `json: "message"`
+	Code    int    `json:"code"`
+	Message string `json:"message"`
 }
 
 func echoHandler(w http.ResponseWriter, r *http.Request) {
