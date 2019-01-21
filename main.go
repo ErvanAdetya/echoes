@@ -57,9 +57,14 @@ func echoHandler(w http.ResponseWriter, r *http.Request) {
 	encoder.Encode(response)
 }
 
+func healthCheck(w http.ResponseWriter, r *http.Request) {
+    w.Write([]byte("OK"))
+}
+
 func main() {
 	r := chi.NewRouter()
 	r.Post("/", echoHandler)
+	r.Get("/", healthCheck)
 
 	http.ListenAndServe(":5000", r)
 }
