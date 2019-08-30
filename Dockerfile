@@ -6,6 +6,8 @@ WORKDIR /go/src/github.com/adinb/echoes
 RUN go get -d -v github.com/go-chi/chi
 
 COPY main.go .
+COPY main_test.go .
+RUN go test -v
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o app .
 
 FROM alpine:latest

@@ -10,18 +10,9 @@ pipeline {
             }
         }
 
-        stage('Run unit test') {
-            steps {
-                sh 'docker run --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp golang:1.8 go test -v'
-            }
-            when {
-                changeRequest target: 'trunk'
-            }
-        }
-
         stage('Build') {
             steps {
-                sh 'docker run --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp golang:1.8 go build -v'
+                sh 'docker build .'
             }
             when {
                 changeRequest target: 'trunk'
