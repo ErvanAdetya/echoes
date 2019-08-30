@@ -5,17 +5,11 @@ pipeline {
             steps {
                 checkout scm
             }
-            when {
-                changeRequest target: 'trunk'
-            }
         }
 
         stage('Build') {
             steps {
                 sh 'docker build .'
-            }
-            when {
-                changeRequest target: 'trunk'
             }
         }
     }
