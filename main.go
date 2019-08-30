@@ -3,12 +3,11 @@ package main
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/go-chi/chi"
 	"net/http"
-	"time"
 	"os"
 	"strconv"
-	"fmt"
 )
 
 type echoRequestResource struct {
@@ -24,8 +23,7 @@ func (r echoRequestResource) validate() error {
 }
 
 type echoResponseResource struct {
-	Message   string `json:"message"`
-	Timestamp string `json:"timestamp"`
+	Message string `json:"message"`
 }
 
 type errorMessageResource struct {
@@ -56,26 +54,26 @@ func echoHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response := echoResponseResource{Message: data.Message, Timestamp: time.Now().Format(time.RFC3339)}
+	response := echoResponseResource{Message: data.Message}
 	encoder.Encode(response)
 }
 
 func healthCheck(w http.ResponseWriter, r *http.Request) {
-    w.Write([]byte("OK"))
+	w.Write([]byte("OK"))
 }
 
 func main() {
-    port := os.Getenv("PORT")
+	port := os.Getenv("PORT")
 
-    _, err := strconv.Atoi(port)
-    if err != nil || port == "" {
-        port = "5000"
-    }
+	_, err := strconv.Atoi(port)
+	if err != nil || port == "" {
+		port = "5000"
+	}
 
 	r := chi.NewRouter()
 	r.Post("/", echoHandler)
 	r.Get("/", healthCheck)
 
 	fmt.Printf("Server is listening on port %s\n", port)
-	http.ListenAndServe(":" + port, r)
+	http.ListenAndServe(":"+port, r)
 }
