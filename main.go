@@ -63,6 +63,7 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	// Test comment here
 	port := os.Getenv("PORT")
 
 	_, err := strconv.Atoi(port)
